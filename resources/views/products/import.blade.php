@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@extends('layouts.panel)
-=======
-@extends('layouts.app')
->>>>>>> e7baf3319b9d1d2c073438c93aa31b3dab27650f
+@extends('layouts.panel')
 @section('content')
 <div class="container">
     <div class="card bg-light mt-3">
@@ -20,5 +16,4 @@
         </div>
     </div>
 </div>
-
 @endsection

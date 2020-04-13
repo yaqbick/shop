@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @extends('layouts.panel')
-=======
-@extends('layouts.app')
->>>>>>> e7baf3319b9d1d2c073438c93aa31b3dab27650f
 @section('content')
 
 @if ($errors->any())
@@ -22,7 +18,7 @@
 @endif
 
 <div class="container">
-<form method="post" action="{{ route('products.store') }}">
+<form method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
 {{csrf_field()}}
     <div class="row">
         <div class="col-6 col-md-4">

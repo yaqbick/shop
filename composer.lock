@@ -1120,15 +1120,12 @@
                 "sftp",
                 "storage"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://offset.earth/frankdejonge",
                     "type": "other"
                 }
             ],
-=======
->>>>>>> e7baf3319b9d1d2c073438c93aa31b3dab27650f
             "time": "2020-03-17T18:58:12+00:00"
         },
         {
@@ -1526,7 +1523,6 @@
         },
         {
             "name": "nikic/php-parser",
-<<<<<<< HEAD
             "version": "v4.4.0",
             "source": {
                 "type": "git",
@@ -1537,18 +1533,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd43ec7152eaaab3bd8c6d0aa95ceeb1df8ee120",
                 "reference": "bd43ec7152eaaab3bd8c6d0aa95ceeb1df8ee120",
-=======
-            "version": "v4.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "9a9981c347c5c49d6dfe5cf826bb882b824080dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/9a9981c347c5c49d6dfe5cf826bb882b824080dc",
-                "reference": "9a9981c347c5c49d6dfe5cf826bb882b824080dc",
->>>>>>> e7baf3319b9d1d2c073438c93aa31b3dab27650f
                 "shasum": ""
             },
             "require": {

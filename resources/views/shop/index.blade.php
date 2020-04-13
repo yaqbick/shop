@@ -3,7 +3,7 @@
 
 <div class="container">
 <?php
-    $products = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
+    // $products = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
     $row_length = 6;
 ?>
 @foreach($products as $key => $val)
@@ -13,11 +13,11 @@
 @endif
     <div class="col-md-2">
         <div class="card">
-            <img class="card-img-top" src="https://s.lubimyczytac.pl/upload/books/4000/4001/134618-352x500.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 style="text-align:center" class="card-title">Narrenturm</h5>
-                    <p class="card-text"></p>
-            </div>
+            <img class="card-img-top" src="{{$val['image']}}" alt="Card image cap">
+            <!-- <div class="card-body">
+                <h5 style="text-align:center" class="card-title">{{$val['name']}}</h5>
+                    <p class="card-text"></p> 
+            </div> -->
             <div class="card-footer">
                 <small class="text-muted"><button class="btn btn-light">add to cart <i class="fas fa-shopping-cart"></i></button></small>
             </div>

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @extends('layouts.panel')
-=======
-@extends('layouts.app')
->>>>>>> e7baf3319b9d1d2c073438c93aa31b3dab27650f
 @section('content')
     <table class="table table-striped">
     <thead>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('shop.index');
+
+        $products =  Product::all();
+        return view('shop.index', compact('products'));
 });
 Auth::routes();
 Route::resource('/panel/products', 'ProductController');
@@ -22,3 +24,7 @@ Route::get('/list', 'ProductController@list');
 Route::get('/import', 'ProductController@importExportView');
 Route::get('export', 'ProductController@export')->name('export');
 Route::post('import', 'ProductController@import')->name('import');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
