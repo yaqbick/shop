@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Product;
+use App\Cart;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,15 +16,29 @@ use App\Product;
 
 Route::get('/', function () {
 
+        if(Session::get('cart')==null)
+        {
+           
+                $cart = new Cart();
+                Session::put('cart', $cart);
+                session(['cart' => $cart]);
+
+        }
+
         $products =  Product::all();
+        // Session::flush();
         return view('shop.index', compact('products'));
-});
+})->name('shop');
+Route::post('/', 'CartController@add');
+Route::post('/aaaa', 'CartController@remove');
 Auth::routes();
 Route::resource('/panel/products', 'ProductController');
 Route::get('/list', 'ProductController@list');
 Route::get('/import', 'ProductController@importExportView');
 Route::get('export', 'ProductController@export')->name('export');
 Route::post('import', 'ProductController@import')->name('import');
+Route::resource('/cart', 'CartController');
+
 
 Auth::routes();
 
@@ -31,6 +46,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/cart', function()
 {
         $cart = Session::get('cart');
-        $cartItems = $cart->getItems();
-        return view('cart.cart', compact('cartItems'));
+        if($cart)
+        {
+                $cartItems = $cart->getItems();
+                return view('cart.cart', compact('cartItems'));
+        }
 });

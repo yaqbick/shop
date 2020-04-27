@@ -4,11 +4,11 @@ use App\CartItem;
 
 class Cart 
 {
-    protected array $items;
+    protected $items;
 
     public function __construct()
     {
-        // $this->item = $item;
+        $this->items = [];
         // $this->amount = $amount;
     }
 
@@ -17,7 +17,7 @@ class Cart
         return $this->items;
     }
 
-    public function getItemByID($id): CartItem
+    public function getItemByID($id)
     {
         if(array_key_exists('item_'.$id,$this->items))
         {
@@ -32,6 +32,12 @@ class Cart
     public function addItem(CartItem $item): void
     {
         $this->items['item_'.$item->getID()] = $item;
+        $this->save();
+    }
+
+    public function removeItem(CartItem $item): void
+    {
+        unset($this->items['item_'.$item->getID()]);
         $this->save();
     }
 

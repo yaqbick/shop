@@ -22,6 +22,11 @@ class CartItem
         return $this->id;
     }
 
+    public function getItem():Product
+    {
+        return  $this->item;
+    }
+
     public function getAmount(): int
     {
         return $this->amount;
@@ -39,6 +44,6 @@ class CartItem
             
         }
 
-        $this->amount = $this->amount - $amountToAdd;
+        $this->amount = $this->amount - $amountToRemove;
     }
 }

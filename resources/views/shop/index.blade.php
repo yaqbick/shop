@@ -19,7 +19,11 @@
                     <p class="card-text"></p> 
             </div> -->
             <div class="card-footer">
-                <small class="text-muted"><button class="btn btn-light">add to cart <i class="fas fa-shopping-cart"></i></button></small>
+                <form action="/" method="POST">
+                @csrf
+                <input type="hidden" name="productID" value="{{$val['id']}}">
+                <small class="text-muted"><button class="btn btn-light" type="submit">add to cart <i class="fas fa-shopping-cart"></i></button></small>
+                </form>
             </div>
         </div>
     </div>

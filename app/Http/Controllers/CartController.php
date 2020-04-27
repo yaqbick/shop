@@ -9,33 +9,55 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function add(Request $request,$id): void
+
+    public function add(Request $request)
     {
+        $id = $request->get('productID');
         $cart = $request->session()->get('cart');
         $product = Product::find($id);
         if ($cart->getItemByID($id)) 
         {
             $cartItem = $cart->getItemByID($id);
-            $cartItem->increaseAmount($amount);
+            $cartItem->increaseAmount(1);
             $cart->save();
+            return redirect()->back();
         }
         else
         {
-            $cartItem = new CartItem($product, $amount);
+            $cartItem = new CartItem($product,1);
             $cart->addItem($cartItem);
         }
     }
 
-    public function remove(Request $request,$id):void
+    public function remove(Request $request)
     {
-        if ($request->session()->has('cart_'.$id)) 
+        $id = $request->get('productID');
+        $cart = $request->session()->get('cart');
+        if ($cart->getItemByID($id)) 
         {
-            $cartItem = $request->session()->get('cart_'.$id);
-            $cartItem->decreaseAmount($amount);
+            $cartItem = $cart->getItemByID($id);
+            $cartItem->decreaseAmount(1);
+
             if($cartItem->getAmount()==0)
             {
-                $request->session()->forget('cart_'.$id);
+                // $this->destroy($id);
             }
+
+            $cart->save();
+            return redirect()->back();
         }
+    }
+
+    public function show(Request $request)
+    {
+        //
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $cart = $request->session()->get('cart');
+        $cartItem = $cart->getItemByID($id);
+        $cart->removeItem($cartItem);
+        return redirect('/cart')->with('success','Coin has been  deleted');
     }
 }
