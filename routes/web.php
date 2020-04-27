@@ -28,3 +28,9 @@ Route::post('import', 'ProductController@import')->name('import');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/cart', function()
+{
+        $cart = Session::get('cart');
+        $cartItems = $cart->getItems();
+        return view('cart.cart', compact('cartItems'));
+});
