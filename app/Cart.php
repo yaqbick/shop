@@ -41,6 +41,19 @@ class Cart
         $this->save();
     }
 
+    public function getTotals():float
+    {
+        $totals = 0;
+        $items = $this->items;
+        foreach($items as $key => $item)
+        {
+            $price = $item->getItem()->price;
+            $amount = $item->getAmount();
+            $totals+= $price*$amount;
+        }
+        return $totals;
+    }
+
     public function save(): void
     {
         session(['cart' => $this]);

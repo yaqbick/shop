@@ -49,6 +49,6 @@ Route::get('/cart', function()
         if($cart)
         {
                 $cartItems = $cart->getItems();
-                return view('cart.cart', compact('cartItems'));
+                return view('cart.cart', compact('cartItems','cart'));
         }
 });
