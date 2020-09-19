@@ -1,23 +1,24 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="container">
+<!-- <div class="container"> -->
 <?php
     // $products = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
     $row_length = 6;
 ?>
+
 @foreach($products as $key => $val)
 @if($key % $row_length==0)
-<?php $new_row=$key ?>
+<?php $new_row = $key; ?>
 <div class="row justify-content-md-center pt-4">
 @endif
     <div class="col-md-2">
         <div class="card">
-            <img class="card-img-top" src="{{$val['image']}}" alt="Card image cap">
-            <!-- <div class="card-body">
-                <h5 style="text-align:center" class="card-title">{{$val['name']}}</h5>
-                    <p class="card-text"></p> 
-            </div> -->
+            <img class="card-img-top" src="{{$val['cover']}}" alt="Card image cap">
+            <div class="card-body">
+              
+                    <p class="card-text">{{$val['title']}}</p><b>{{$val['price']}} zł</b>
+            </div>
             <div class="card-footer">
                 <form action="/" method="POST">
                 @csrf
@@ -32,4 +33,5 @@
 @endif
 @endforeach
 </div>
+@endsection
  

@@ -1,20 +1,18 @@
 <?php
 
 namespace App;
-use App\Product;
 
-class CartItem 
+class CartItem
 {
     protected $id;
     protected $item;
     protected $amount;
 
-    public function __construct(Product $item,int $amount = 1)
+    public function __construct(Book $item, int $amount = 1)
     {
         $this->id = $item->id;
         $this->item = $item;
         $this->amount = $amount;
-
     }
 
     public function getID()
@@ -22,7 +20,7 @@ class CartItem
         return $this->id;
     }
 
-    public function getItem():Product
+    public function getItem(): Book
     {
         return  $this->item;
     }
@@ -39,11 +37,11 @@ class CartItem
 
     public function decreaseAmount($amountToRemove): void
     {
-        if($amountToRemove > $this->amount)
-        {
-            
+        if ($amountToRemove > $this->amount) {
         }
-
-        $this->amount = $this->amount - $amountToRemove;
+        if ($this->amount == 1) {
+        } else {
+            $this->amount = $this->amount - $amountToRemove;
+        }
     }
 }

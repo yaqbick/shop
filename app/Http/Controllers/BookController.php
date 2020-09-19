@@ -2,23 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Exports\ProductsExport;
-use App\Imports\ProductsImport;
-use Maatwebsite\Excel\Facades\Excel;
 
-class ProductController extends Controller
+class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-
     }
 
     /**
@@ -34,7 +23,6 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +30,7 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|max:255|unique:products,name',
             'product_sku' => 'required|numeric|unique:products,SKU',
-            'product_price' => 'required|numeric'
+            'product_price' => 'required|numeric',
         ]);
 
         $path = $request->file('product_image')->storeAS('images', $request->file('product_image')->getClientOriginalName());
@@ -65,39 +53,39 @@ class ProductController extends Controller
             'is_purchasable' => $request->get('is_product_purchasable'),
             'is_taxable' => null,
             'tax' => $request->get('product_tax'),
-            'qty' => null
+            'qty' => null,
         ];
         Product::create($product);
+
         return redirect('/panel/products/create')->with('success', 'Product is successfully created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        return view('products.edit',compact('product'));
+        return view('products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,9 +93,9 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|max:255',
             'product_sku' => 'required|numeric',
-            'product_price' => 'required|numeric'
+            'product_price' => 'required|numeric',
         ]);
-   
+
         $file = $request->file('product_image')->storeAs('public', $request->file('product_image')->getClientOriginalName());
         $url = Storage::url($file);
         // $product = [
@@ -152,42 +140,42 @@ class ProductController extends Controller
         $product->tax = $request->get('product_tax');
         $product->qty = null;
         $product->save();
+
         return redirect()->back()->with('success', 'Contact updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
     {
-        //
     }
 
     public function list()
     {
         $products = Product::all()->toArray();
+
         return view('products.list', compact('products'));
     }
 
     public function importExportView()
     {
-       return view('products.import');
+        return view('products.import');
     }
-   
-    public function export() 
-    {
-        return Excel::download(new ProductsExport, 'users.xlsx');
-    }
-   
 
-    public function import() 
+    public function export()
     {
-        Excel::import(new ProductsImport,request()->file('file'));
-           
+        return Excel::download(new ProductsExport(), 'users.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new ProductsImport(), request()->file('file'));
+
         return back();
     }
-
 }
