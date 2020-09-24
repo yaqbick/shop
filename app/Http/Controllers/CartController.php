@@ -1,27 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Services\CartService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function __construct(CartService $service)
-    {
-        $this->service = $service;
-    }
+    private $service;
 
-    public function add(Request $request)
+    // public function __construct(CartService $service)
+    // {
+    //     $this->service = $service;
+    // }
+
+    public function add(Request $request, CartService $service): RedirectResponse
     {
-        $this->service->add($request);
+        $service->add($request);
 
         return redirect()->back();
     }
 
-    public function remove(Request $request)
+    public function remove(Request $request, CartService $service): RedirectResponse
     {
-        $this->service->remove($request);
+        $service->remove($request);
 
         return redirect()->back();
     }
@@ -30,9 +35,9 @@ class CartController extends Controller
     {
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id, CartService $service): RedirectResponse
     {
-        $this->service->destroy($request, $id);
+        $service->destroy($request, $id);
 
         return redirect('/cart')->with('success', 'Coin has been  deleted');
     }

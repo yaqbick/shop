@@ -8,6 +8,7 @@
         <th>Title</th>
         <th>Price</th>
         <th>Quantity</th>
+        <th>Totals</th>
         <th colspan="2">Action</th>
       </tr>
     </thead>
@@ -36,6 +37,7 @@
         </div>
     </div>
 </td>
+<td>{{$obj->getTotals()}}</td>
 <td>
 <form action="{{action('CartController@destroy', $obj->getID())}}" method="post">
 @csrf

@@ -13,8 +13,8 @@ class CartService
         $id = $request->get('productID');
         $cart = $request->session()->get('cart');
         $product = Book::find($id);
-        if ($cart->getItemByID($id)) {
-            $cartItem = $cart->getItemByID($id);
+        if ($cart->itemExists($id)) {
+            $cartItem = $cart->getItemById($id);
             $cartItem->increaseAmount(1);
             $cart->save();
         } else {
@@ -27,8 +27,8 @@ class CartService
     {
         $id = $request->get('productID');
         $cart = $request->session()->get('cart');
-        if ($cart->getItemByID($id)) {
-            $cartItem = $cart->getItemByID($id);
+        if ($cart->itemExists($id)) {
+            $cartItem = $cart->getItemById($id);
             $cartItem->decreaseAmount(1);
             if ($cartItem->getAmount() == 0) {
                 // $this->destroy($request, $id);

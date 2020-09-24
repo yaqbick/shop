@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('shop.index', compact('products', 'cartItems'));
 })->name('shop');
 Route::post('/', 'CartController@add');
-Route::post('/aaaa', 'CartController@remove');
+Route::post('/remove', 'CartController@remove');
 Auth::routes();
 Route::resource('/panel/products', 'BookController');
 Route::get('/list', 'BookController@list');
@@ -36,6 +36,7 @@ Route::get('/import', 'BookController@importExportView');
 Route::get('export', 'BookController@export')->name('export');
 Route::post('import', 'BookController@import')->name('import');
 Route::resource('/cart', 'CartController');
+Route::resource('order', 'OrderController');
 
 Auth::routes();
 

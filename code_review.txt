@@ -1,0 +1,60 @@
+ontroller
+brakuje service jako property klasy
+np.
+private CartService $service;
+Serwis lepiej wstrzykiwać zamiast w konstruktorze to w konkretnej metodzie
+np.
+public function add(Request $request, CartService $service): RedirectResponse {}
+Gdy potrzebujesz w urlu id to wstawiaj go jako 1 parametr w metodzie:
+np.
+public function destroy(int $id, Request $request): RedirectResponse
+Brakuje typowania i return type.
+W kontrolerze nie powinieneś wstrzykiwać klasy Request tylko konkretny Request z laravela który tworzysz poleceniem:
+php artisan make:request TutajNazwaRequesta
+W nim możesz utworzyć walidację dla danego requesta tutaj dokumentacja:
+https://laravel.com/docs/8.x/validation#form-request-validation
+Service
+Nie walidujemy w serwisie - staramy się jak najszybciej "wejścia" wyłapać request który jest błędny, walidujemy w FormRequest wstrzykiwany w kontroller tak jak wyżej pisałem
+ma być getItemById, a nie getItemByID - używaj camel case
+Po co używasz getItemById dwukrotnie? Najpierw w warunku a potem do pobrania itemu - jest to błędne zachowanie
+Powinieneś odseparować jeszcze warstwę dotyczącą samego zapisu/usunięcia do repozytorium
+Złe nazewnictwo metod - add a masz tutaj tzw. upsert(update+insert) czyli albo aktualizujesz albo dodajesz nowy w jednej metodzie
+Analogicznie powinieneś zrobić metodę dla remove i destroy przy czym to też zła nazwa
+powinieneś mieć 2 metody 1 do dodania itemu do koszyka, a druga do zdjęcia itemu z koszyka
+Book - wiem że nie chciałeś skupiać się na tym
+złe nazewnictwo metod - powinny one konkretnie mieć jakieś publisher(), categories(), authors(), orderItems(), comments()
+Odpowiednio jak masz relację one to one to powinna być liczba pojedyncza w nazwie, jak jest many to one to liczba pojedyncza, jak jest one to many to liczba mnoga, i jak many to many to też liczba mnoga
+i metody które się nazywają hasCośTam powinny zwracać boolean - true, false, czy coś zawierają czy nie, a tutaj zwróci Ci kolekcję encji więc to jest błędne
+Cart
+błędne formatowanie odstęp pomiędzy <?php a namespace a use
+brakuje type hintu przy $items
+Zły namespace, jak widzę Cart to odpowiednik modelu a nie encji i powinien się znajdować w osobnym folderze niż encje bo to mylące
+brakuje return type
+XMA Header Image
+Validation - Laravel - The PHP Framework For Web Artisans
+laravel.com
+
+Adam
+wysłane
+3 min temu
+brakuje Ci hermetyzacji danych
+Adam
+wysłane
+3 min temu
+dane nie powinny być wyciągane z klas prosto z pól tylko getterami
+Adam
+wysłane
+3 min temu
+CartItem     public function decreaseAmount($amountToRemove): void
+    {
+        if ($amountToRemove > $this->amount) {
+        }
+        if ($this->amount == 1) {
+        } else {
+            $this->amount = $this->amount - $amountToRemove;
+        }
+    }
+Adam
+wysłane
+3 min temu
+ta metoda to jakieś nieporozumienie 😛

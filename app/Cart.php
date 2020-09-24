@@ -1,8 +1,10 @@
 <?php
-namespace App;
-use App\CartItem;
 
-class Cart 
+namespace App;
+
+use Exception;
+
+class Cart
 {
     protected $items;
 
@@ -17,16 +19,22 @@ class Cart
         return $this->items;
     }
 
-    public function getItemByID($id)
+    public function getItemById($id)
     {
-        if(array_key_exists('item_'.$id,$this->items))
-        {
-            return $this->items['item_'.$id];
+        if (!array_key_exists('item_'.$id, $this->items)) {
+            throw new Exception('item not found');
         }
-        else
-        {
+
+        return $this->items['item_'.$id];
+    }
+
+    public function itemExists($id)
+    {
+        if (!array_key_exists('item_'.$id, $this->items)) {
             return false;
         }
+
+        return true;
     }
 
     public function addItem(CartItem $item): void
@@ -41,16 +49,16 @@ class Cart
         $this->save();
     }
 
-    public function getTotals():float
+    public function getTotals(): float
     {
         $totals = 0;
         $items = $this->items;
-        foreach($items as $key => $item)
-        {
+        foreach ($items as $key => $item) {
             $price = $item->getItem()->price;
             $amount = $item->getAmount();
-            $totals+= $price*$amount;
+            $totals += $price * $amount;
         }
+
         return $totals;
     }
 
