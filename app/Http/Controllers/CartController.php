@@ -21,7 +21,7 @@ class CartController extends Controller
     {
         $service->add($request);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'pomyślnie dodano do koszyka');
     }
 
     public function remove(Request $request, CartService $service): RedirectResponse

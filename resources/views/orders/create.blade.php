@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.app')
 @section('content')
       <h2>Złóż zamówienie</h2><br  />
       @if ($errors->any())

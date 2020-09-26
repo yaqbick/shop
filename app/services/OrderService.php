@@ -9,8 +9,10 @@ class OrderService
 {
     public function saveOrder($cart): void
     {
+        $user = auth()->user();
+        var_dump($user);
         $order = [
-            'customer_id' => 1,
+            'user_id' => $user->id,
             'totals' => $cart->getTotals(),
         ];
         $orderId = Order::create($order)->id;

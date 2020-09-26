@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     if (Session::get('cart') == null) {
         $cart = new Cart();
@@ -29,23 +29,25 @@ Route::get('/', function () {
 })->name('shop');
 Route::post('/', 'CartController@add');
 Route::post('/remove', 'CartController@remove');
-Auth::routes();
+
 Route::resource('/panel/products', 'BookController');
 Route::get('/list', 'BookController@list');
 Route::get('/import', 'BookController@importExportView');
 Route::get('export', 'BookController@export')->name('export');
 Route::post('import', 'BookController@import')->name('import');
-Route::resource('/cart', 'CartController');
-Route::resource('order', 'OrderController');
-
-Auth::routes();
-
+Route::resource('/cart', 'CartController')->middleware('auth');
+Route::post('order', 'OrderController@store')->middleware('auth');
+Route::get('order', 'OrderController@index')->middleware('auth');
+Route::put('order/{id}', 'OrderController@edit');
+Route::delete('order/{id}', 'OrderController@destroy');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/cart', function () {
     $cart = Session::get('cart');
     if ($cart) {
         $cartItems = $cart->getItems();
-
-        return view('cart.cart', compact('cartItems', 'cart'));
+    } else {
+        $cartItems = null;
     }
+
+    return view('cart.cart', compact('cartItems', 'cart'));
 });

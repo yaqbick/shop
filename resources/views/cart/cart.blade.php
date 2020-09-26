@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@if($cartItems && $cart)
 <table class="table table-striped">
     <thead>
       <tr>
@@ -13,6 +13,7 @@
       </tr>
     </thead>
     <tbody>
+
 @foreach($cartItems as $key => $obj)
 <tr>
 <td><img src="{{$obj->getItem()->cover}}" width="70" height="100"></td>
@@ -49,10 +50,30 @@
 @endforeach
 </tbody>
 </table>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">TOTALS</h5>
-    <p class="card-text">{{$cart->getTotals()}}</p>
+<div class="row">
+  <div class="col-6 col-md-4">
+    <div class="form-group">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">TOTALS</h5>
+          <p class="card-text">{{$cart->getTotals()}}</p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="col-6 col-md-4">
+    <div class="form-group">
+      <form method="post" action="{{url('order')}}">
+      {{csrf_field()}}
+        <button type="submit" class="btn btn-success" style="margin-left:38px">Przejdź do płatności</button>
+      </form>
+    </div>
+  </div>
+
+    @else
+    <p>Twój koszyk jest pusty</p>
+    @endif
+    </div>
+    </div>
+
 @endsection
