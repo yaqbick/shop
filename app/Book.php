@@ -23,7 +23,7 @@ class Book extends Model
 
     public function hasOrderItem()
     {
-        return $this->belongsToMany(OrderItem::class);
+        return $this->belongsToMany(OrderItem::class, 'book_id');
     }
 
     public function hasComment()

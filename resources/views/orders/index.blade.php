@@ -20,7 +20,7 @@
     <tbody>
       @foreach($orders as $order)
       <tr>
-        <td><a href='/orders/'.{{$order['id']}}.'/odrerItems'.> {{$order['id']}}</td>
+        <td><a href='/order/{{$order["id"]}}/items'>zamówienie {{$order['id']}}</td>
         <td>{{$order['totals']}}</td>
         <td>{{$order['created_at']}}</td>
         <td><a href="{{action('OrderController@edit', $order['id'])}}" class="btn btn-warning">Edit</a></td>

@@ -12,4 +12,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function book()
+    {
+        return $this->hasOne(Book::class, 'id');
+    }
 }

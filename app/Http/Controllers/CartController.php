@@ -16,6 +16,17 @@ class CartController extends Controller
     // {
     //     $this->service = $service;
     // }
+    public function index(Request $request, CartService $cartService)
+    {
+        $cart = $cartService->getCart();
+        if ($cart) {
+            $cartItems = $cart->getItems();
+        } else {
+            $cartItems = null;
+        }
+
+        return view('cart.cart', compact('cartItems', 'cart'));
+    }
 
     public function add(Request $request, CartService $service): RedirectResponse
     {

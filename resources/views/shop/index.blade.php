@@ -11,6 +11,8 @@
 @if($key % $row_length==0)
 <?php $new_row = $key; ?>
 <div class="row justify-content-md-center pt-4">
+@else
+<?php $new_row = 0; ?>
 @endif
     <div class="col-md-2">
         <div class="card">

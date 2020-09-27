@@ -87,14 +87,21 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Kategorie
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        @foreach($categories as $category)
+          <a class="dropdown-item" href="/category/{{$category->id}}">{{$category->name}}</a>
+        @endforeach
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/cart">Koszyk</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/order">Moje zamówienia</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
       </li>
     </ul>
   </div>
